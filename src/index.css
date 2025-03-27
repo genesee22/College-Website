@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-color: rgb(0, 0, 0);
+
+  --bg-primary: rgb(255, 255, 255);
+  --bg-secondary: rgb(255, 255, 255);
+
+  --btn-color: rgb(0, 0, 0);
+  --btn-font-color: rgb(255, 255, 255);
+
+  --blue-primary: rgb(109, 165, 255);
+  --blue-secondary: rgba(109, 165, 255, 0.25);
+  
+  --green-primary: rgb(90, 228, 177);
+  --green-secondary: rgba(109, 255, 116, 0.25);
+
+  --sidebar-toggle-default: rgb(220, 220, 220);
+  --sidebar-toggle-hover: rgb(193, 193, 193);
+
+  --theme-toggle-primary: rgb(0, 0, 0);
+  --theme-toggle-secondary: rgba(218, 232, 255);
+
+  --navitem-hover: rgb(80, 80, 80);
+
+  --gray-1: rgb(220, 220, 220);
+  --gray-2: rgb(200, 200, 200);
+  --gray-3: rgb(240, 240, 240);
+  --gray-4: rgb(240, 240, 240);
+
+  --setting-icon-size: 'wght' 200;
+
+  font-family: "Raleway", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] {
+  --text-color: rgb(255, 255, 255);
+
+  --bg-primary: rgb(23, 23, 23);
+  --bg-secondary: rgb(25, 25, 25);
+
+  --btn-color: rgb(255, 255, 255);
+  --btn-font-color: rgb(0, 0, 0);
+
+  --blue-primary: rgb(99, 158, 255);
+  --blue-secondary: rgba(109, 165, 255, 0.25);
+  
+  --green-primary: rgb(90, 228, 177);
+  --green-secondary: rgba(78, 181, 121, 0.25);
+
+  --sidebar-toggle-default: rgb(65, 65, 65);
+  --sidebar-toggle-hover: rgb(83, 83, 83);
+
+  --theme-toggle-primary: rgb(0, 0, 0);
+  --theme-toggle-secondary: rgba(255, 255, 255);
+
+  --navitem-hover: rgb(211, 211, 211);
+
+  --gray-1: rgb(65, 65, 65);
+  --gray-2: rgb(45, 45, 45);
+  --gray-3: rgb(20, 20, 20);
+  --gray-4: rgb(15, 15, 15);
+
+  --setting-icon-size: 'wght' 300;
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: calc(100% - 270px);
+  margin-left: 270px;
+  background-color: var(--bg-primary);
+  color: var(--text-color);
+  transition: all 0.25s ease-in-out;
+}
+
+.container.wider{
+  width: calc(100% - 70px);
+  margin-left: 70px;
+}
