@@ -78,19 +78,61 @@
   --setting-icon-size: 'wght' 300;
 
 }
-
+ 
 .container {
   display: flex;
   justify-content: center;
   height: 100vh;
   width: calc(100% - 270px);
   margin-left: 270px;
+  margin-top: auto;
   background-color: var(--bg-primary);
   color: var(--text-color);
-  transition: all 0.25s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .container.wider{
   width: calc(100% - 70px);
   margin-left: 70px;
 }
+
+.content {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background-color: var(--bg-primary);
+  width: calc(100% - 270px);
+  height: 83%;
+  margin-top: 8%;
+  border-radius: 2.5rem 2.5rem 0 0;
+  transition: all 0.1s ease-in-out;
+}
+
+.content.wider {
+  width: calc(100% - 70px);
+}
+
+.header-img {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 25%;
+  transition: all 0.1s ease-in-out;
+}
+
+.header-img.wider {
+  height: 30%;
+}
+
+.header-img img:nth-child(1) {
+  width: 100%;
+  height: 100%;
+}
+
+.header-img img:nth-child(2) {
+  position: absolute;
+  width: 240px;
+  margin-top: 1.3%;
+}
+
+

@@ -18,10 +18,12 @@ const Sidebar = ({isDark, handleTheme, isOpen, handleSize}) => {
           </div>
 
           <div className={styles.section}>
-            <button className={styles.settings}>
-              <span>Налаштування</span>
-              <i className="material-symbols-outlined">{isOpen ? '' : 'settings'}</i>  
-            </button>
+            <Link to="/settings" className={styles.settingsLink}>
+              <button className={styles.settings}>
+                <span>Налаштування</span>
+                <i className="material-symbols-outlined">{isOpen ? '' : 'settings'}</i>  
+              </button>
+            </Link>
             <input
               type="checkbox"
               id="check"
