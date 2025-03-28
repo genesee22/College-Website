@@ -13,7 +13,7 @@ const Sidebar = ({isDark, handleTheme, isOpen, handleSize}) => {
             <div className={styles.profileCircle}></div>
             <p className={styles.nameSurname}>Прізвище Ім'я</p>
             <div className={styles.sidebarToggle} onClick={handleSize}>
-              <i className="material-symbols-outlined">side_navigation</i>
+              <i className="material-symbols-outlined">first_page</i>
             </div>
           </div>
 
@@ -24,16 +24,18 @@ const Sidebar = ({isDark, handleTheme, isOpen, handleSize}) => {
                 <i className="material-symbols-outlined">{isOpen ? '' : 'settings'}</i>  
               </button>
             </Link>
-            <input
-              type="checkbox"
-              id="check"
-              className={styles.themeToggle} 
-              checked={isDark}
-              onChange={handleTheme}
-            />
-            <label htmlFor="check">
-              <i className="material-symbols-outlined">{isDark ? 'dark_mode' : 'light_mode'}</i>
-            </label>
+            <div className={styles.toggleWrapper}>
+              <input
+                type="checkbox"
+                id="check"
+                className={styles.themeToggle} 
+                checked={isDark}
+                onChange={handleTheme}
+              />
+              <label htmlFor="check">
+                <i className="material-symbols-outlined">{isDark ? 'dark_mode' : 'light_mode'}</i>
+              </label>
+            </div>
           </div>
 
         </header>
@@ -58,8 +60,12 @@ const Sidebar = ({isDark, handleTheme, isOpen, handleSize}) => {
               </Link>
             </li>
           <li className={styles.navItem}>
-            <i className="material-symbols-outlined">logout</i>
-            <p>Вийти</p>
+            <Link to="/electives" className={styles.link}>
+              <i className="material-symbols-outlined">logout</i>
+            </Link>
+            <Link to="/electives" className={styles.link}>
+              <p>Вийти</p>
+            </Link>
           </li>
         </ul>
       </nav>

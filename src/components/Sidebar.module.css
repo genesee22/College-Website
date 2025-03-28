@@ -9,15 +9,17 @@
     font-weight: 500;
     background-color: var(--bg-secondary);
     color: var(--text-color);
-    transition: all 0.1s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close {
     width: 70px;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close p {
     visibility: hidden;
+    transition: all 0.25s ease-in-out;
 }
 
 .line {
@@ -31,6 +33,7 @@
 
 .sidebar.close .line {
     width: 70%;
+    transition: all 0.25s ease-in-out;
 }
 
 /* ===== Accaunt Info ===== */
@@ -39,12 +42,14 @@ header {
     align-items: center;
     width: 80%;
     margin-top: 10px;
+    transition: all 0.25s ease-in-out;
 }
 
 .section {
     display: flex;
     align-items: center;
     margin: 20px 0;
+    transition: all 0.25s ease-in-out;
 }
 
 .profileCircle {
@@ -52,6 +57,7 @@ header {
     height: 50px;
     background-color: var(--gray-4);
     border-radius: 50%;
+    transition: all 0.25s ease-in-out;
 }
 
 .nameSurname {
@@ -68,19 +74,19 @@ header {
     justify-content: center;
     margin-left: auto;
     cursor: pointer;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebarToggle i {
     font-size: 1.4rem;
     transform: scaleX(1.2);
     color: var(--sidebar-toggle-default);
-    font-variation-settings: 'wght' 300;
+    font-variation-settings: 'wght' 500;
     transition: all 0.25s ease-in-out;
 }
 
 .sidebarToggle i:hover {
     color: var(--sidebar-toggle-hover);
-    transition: all 0.25s ease-in-out;
 }
 
 .settingsLink {
@@ -102,15 +108,25 @@ header {
     color: var(--btn-font-color);
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 0.8rem;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     border: none;
     transition: all 0.25s ease-in-out;
 }
 
 .settings:hover { border-radius: 10px; }
+
+.toggleWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 30px;
+    margin-left: auto;
+    transition: all 0.25s ease-in-out;
+}
 
 .themeToggle { visibility: hidden; }
 
@@ -118,10 +134,9 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
     cursor: pointer;
-    width: 25%;
-    height: 30px;
+    width: 100%;
+    height: 100%;
     transition: all 0.25s ease-in-out;
 }
 
@@ -147,7 +162,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.25s ease-in-out, transform 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 label i {
@@ -157,7 +172,7 @@ label i {
     margin-right: 1.4rem;
     font-size: 1rem !important;
     font-variation-settings: 'wght' 400;
-    transition: all 0.25s ease-in-out, transform 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 .themeToggle:checked + label::after {
@@ -187,6 +202,7 @@ label i {
     display: flex;
     justify-content: center;
     cursor: default;
+    transition: all 0.25s ease-in-out;
 }
 
 .navItem {
@@ -194,9 +210,8 @@ label i {
     align-items: center;
     list-style-type: none;
     column-gap: 15px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-top: 30px;
-    transition: all 0.25s ease-in-out;
 }
 
 .navItem:last-child { 
@@ -207,25 +222,24 @@ label i {
 .navItem i { 
     font-size: 1.4rem; 
     font-variation-settings: 'wght' 300;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 .navItem p { cursor: pointer; }
 
-.navItem:has(p:hover), .navItem:has(i:hover) {
-    color: var(--navitem-hover);
-    transition: all 0.25s ease-in-out;
-}
+.navItem:has(p:hover), .navItem:has(i:hover) { color: var(--navitem-hover); }
 
-/* ===== Closed SideBar Accaunt Info ===== */
+/* ===== Accaunt Info | Closed SideBar ===== */
 
 .sidebar.close header {
     margin-top: 20px;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .section {
     flex-wrap: wrap;
     justify-content: center;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .sidebarToggle {
@@ -238,66 +252,82 @@ label i {
 .sidebar.close .sidebarToggle i {
     margin-left: -10px;
     font-size: 1.2rem;
+    transform: rotate(180deg);
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .profileCircle {
     margin-bottom: -23px;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .nameSurname {
     font-size: 0;
     z-index: -1;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .settingsLink {
     width: 80%;
     height: 40px;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .settings {
     font-size: 0;
     margin-left: 0;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .settings span {
-    font-size: 0;
+    opacity: 0;
     z-index: -1;
 }
 
 .sidebar.close .settings i {
     font-size: 1.8rem;
     font-variation-settings: var(--setting-icon-size);
+    transition: all 0.25s ease-in-out;
+}
+
+.sidebar.close .toggleWrapper {
+    margin-top: 15px;
+    margin-left: -12px;
+    margin-bottom: -10px;
+    width: 100%;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .themeToggle + label {
-    margin-left: 0;
-    margin-bottom: -10px;
     cursor: pointer;
-    width: 80%;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .themeToggle + label::after {
     margin-right: 0.9rem;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close label i {
     margin-right: 0.9rem;
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .themeToggle:checked + label::after {
     transform: translateX(60%);
+    transition: all 0.25s ease-in-out;
 }
 
 .sidebar.close .themeToggle:checked + label i {
     transform: translateX(92%);
+    transition: all 0.25s ease-in-out;
 }
 
-/* ===== Closed SideBar Navigation ===== */
+/* ===== Navigation | Closed SideBar ===== */
 
 .sidebar.close .link:has(p) {
-    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
 }
 
-.sidebar.close .navItem { 
-    margin-left: 25%;
-}
+.sidebar.close .navItem { margin-left: 25%; }
