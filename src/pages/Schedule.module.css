@@ -3,7 +3,8 @@
    justify-content: center;
    width: 800px;
    height: 500px;
-   margin-top: 70px;
+   margin-top: 50px;
+   margin-right: 50px;
    padding-top: 20px;
    transition: all 0.25s ease-in-out;
 }
@@ -12,7 +13,7 @@
    display: flex;
    justify-content: center;
    width: 100%;
-   gap: 14%;
+   gap: 15%;
    z-index: 1;
 }
 
@@ -20,17 +21,26 @@
    font-family: "Montserrat", sans-serif;
    font-size: 0.8rem;
    font-weight: 600; 
-   color: var(--text-color);
+   color: var(--btn-color);
    cursor: pointer;
+   height: 15px;
+   transition: all 0.3s ease-in-out;
+}
+
+.selected_p {
+   color: var(--btn-font-color) !important;
+   cursor: default !important;
 }
 
 .selected {
    position: absolute;
-   width: 80px;
-   height: 25px;
+   width: 100px;
+   height: 30px;
    border-radius: 1rem;
-   transform: translateX(-380%);
+   background-color: var(--btn-color);
+   margin-top: -6px;
    z-index: -1;
+   transition: all 0.25s ease-in-out;
 }
 
 .weekToggle {
@@ -39,8 +49,7 @@
    background-color: var(--bg-secondary);
    width: 250px;
    height: 50px;
-   margin-top: 70px;
-   margin-left: 30px;
+   margin-top: 50px;
    border-radius: 1rem;
    border: 2px solid var(--gray-3);
    transition: all 0.25s ease-in-out;
@@ -53,8 +62,7 @@
    width: 250px;
    height: 420px;
    margin-top: 30px;
-   margin-left: 30px;
    border-radius: 1rem;
    border: 2px solid var(--gray-3);
    transition: all 0.25s ease-in-out;
-}
+} 
