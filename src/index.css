@@ -10,6 +10,7 @@
 
 :root {
   --text-color: rgb(0, 0, 0);
+  --name-surname-color: rgb(0, 0, 0);
 
   --bg-primary: rgb(255, 255, 255);
   --bg-secondary: rgb(255, 255, 255);
@@ -38,6 +39,9 @@
 
   --setting-icon-size: 'wght' 200;
 
+  --schedule-line: rgb(240, 240, 240);
+  --schedule-time: rgb(196, 196, 196) ;
+
   font-family: "Raleway", sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -50,6 +54,7 @@
 
 [data-theme="dark"] {
   --text-color: rgb(255, 255, 255);
+  --name-surname-color: rgb(255, 255, 255);
 
   --bg-primary: rgb(23, 23, 23);
   --bg-secondary: rgb(25, 25, 25);
@@ -78,13 +83,16 @@
 
   --setting-icon-size: 'wght' 300;
 
+  --schedule-line: rgb(60, 60, 60) ;
+  --schedule-time: rgb(110, 110, 110) ;
+
 }
  
 .container {
   display: flex;
   justify-content: center;
-  height: 100vh;
   width: calc(100% - 270px);
+  height: 100vh;
   margin-left: 270px;
   margin-top: auto;
   background-color: var(--bg-primary);
@@ -103,7 +111,6 @@
   position: absolute;
   background-color: var(--bg-primary);
   width: calc(100% - 270px);
-  height: 83%;
   margin-top: 8%;
   border-radius: 2.5rem 2.5rem 0 0;
   transition: all 0.25s ease-in-out;
@@ -132,8 +139,8 @@
 
 .header-img img:nth-child(2) {
   position: absolute;
-  width: 210px;
-  margin-top: 1.5rem;
+  width: 13%;
+  margin-top: 1.6%;
 }
 
 

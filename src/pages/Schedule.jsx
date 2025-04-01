@@ -1,55 +1,64 @@
 import { Link } from 'react-router-dom';
 import styles from '../pages/Schedule.module.css';
 import useLocalStorage from 'use-local-storage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Schedule = () => {
-  const [isOpen] = useLocalStorage('isSideBarOpen');
+  const [subjects, setSubjects] = useState([]);
 
-  let days = [
-    { name: 'ПН', current: false, weekNum: 1},
-    { name: 'ВТ', current: false, weekNum: 1},
-    { name: 'СР', current: false, weekNum: 1},
-    { name: 'ЧТ', current: false, weekNum: 1},
-    { name: 'ПТ', current: false, weekNum: 1},
-    { name: 'СБ', current: false, weekNum: 1},
-  ]
   const weekDay = new Date().getDay();
-  const [currDay, setCurrDay] = weekDay == 7 ? useState(0) : useState(weekDay - 1);
-  
-  const [translateX, setTranslateX] = useState(`translateX(calc(-345% + 138% * ${currDay}))`);
+  const [currDay, setCurrDay] = useState(weekDay === 7 ? 0 : weekDay - 1);
+  const [translateX, setTranslateX] = useState(`translateX(calc(-355px + 142px * ${currDay}))`);
 
   function changeCurrDay(index) {
-    days.map((day, i) => {
-      day.current = false;
-      if (i === index) {
-        setCurrDay(index);
-        setTranslateX(`translateX(calc(-345% + 138% * ${index}))`);
-      }
-    });
+    setCurrDay(index);
+    setTranslateX(`translateX(calc(-355px + 142px * ${index}))`);
   }
-  
+
+  useEffect(() => {
+    fetch('/public/subjects.json')
+    .then(response => response.json())
+    .then(data => setSubjects(data))
+    .catch(error => console.error('Failed to fetch subjects:', error));
+  }, []);
+
+  const [isOpen] = useLocalStorage('isSideBarOpen');
+
   return (
     <>
       <div className={`header-img ${isOpen ? '' : 'wider'}`}>
-        <img src="/public/header.png"/>
-        <img src="/public/header-logo.png"/>
+        <img src="/public/header.png" alt="Header" />
+        <img src="/public/header-logo.png" alt="Logo" />
       </div>
+      
       <div className={`content ${isOpen ? '' : 'wider'}`}>
         <div className={styles.schedule}>
-        <div className={styles.navigation}>
-          {days.map((day, index) => (
-            <p
-              className={currDay === index ? styles.selected_p : ''} 
-              onClick={() => changeCurrDay(index)}
-            >
-              {day.name}
-            </p>
-          ))}
-          <div className={styles.selected} style={{transform: translateX}}></div>
-        </div>
-          
+          <div className={styles.navigation}>
+            {['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'].map((day, index) => (
+              <p 
+                className={`${styles.days} ${currDay === index ? styles.selectedDay : ''}`}
+                onClick={() => changeCurrDay(index)}
+              >
+                {day}
+              </p>
+            ))}
+            <div className={styles.selectedWrapper} style={{ transform: translateX }}></div>
+          </div>
+
+          <div className={styles.navUnderLine}></div>
+          <p className={styles.timeFirst}>8:20</p>
+
+          <div className={styles.subjectList}>
+            {['9.50', '11:30', '13:00', '14:40', '16:10', '17:50'].map((time, index) => (
+              <>
+                <div className={styles.line}></div>
+                <p className={styles.time}>{time}</p>
+              </>
+            ))}
+            <div className={styles.line}></div>
+          </div>
         </div>  
+
         <div>
           <div className={styles.weekToggle}></div>  
           <div className={styles.subjInfo}></div>  
