@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useLocalStorage from 'use-local-storage';
 
 import Sidebar from '../components/Sidebar';
@@ -10,8 +10,22 @@ import Settings from '../pages/Settings';
 
 const AppRoutes = () => {
   const [isDark, setDark] = useLocalStorage('isDark', false);
-  const [isOpen, setSideBar] = useLocalStorage('isSideBarOpen', true);
+  const [isOpen, setSideBar] = useLocalStorage('isSideBarOpen', true);;
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1300) {
+        setSideBar(false);
+      }
+    };
+  
+    window.addEventListener('resize', handleResize);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   return (
     <div data-theme={isDark ? "dark" : "light"}>
       <Sidebar 

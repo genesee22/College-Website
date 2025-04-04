@@ -80,10 +80,9 @@ header {
 }
 
 .sidebarToggle i {
-    font-size: 1.4rem;
-    transform: scaleX(1.2);
+    font-size: 1.2rem;
     color: var(--sidebar-toggle-default);
-    font-variation-settings: 'wght' 500;
+    font-variation-settings: 'wght' 800;
     transition: all 0.25s ease-in-out;
 }
 
@@ -265,7 +264,8 @@ label i {
 
 .sidebar.close .nameSurname {
     font-size: 0;
-    transition: all 0.25s ease-in-out;
+    overflow: hidden;
+    transition: opacity 0.25s ease-in-out, width 0.25s ease-in-out;
 }
 
 .sidebar.close .settingsLink {
@@ -328,12 +328,28 @@ label i {
 
 .sidebar.close .navItem p {
     opacity: 0;
-    transition: all 0.25s ease-in-out;
+    overflow: hidden;
+    transition: opacity 0.25s ease-in-out, width 0.25s ease-in-out;
 }
 
 .sidebar.close .link:has(p) {
     font-size: 0;
-    transition: all 0.25s ease-in-out;
+    overflow: hidden;
+    transition: opacity 0.25s ease-in-out, width 0.25s ease-in-out;
 }
 
 .sidebar.close .navItem { margin-left: 25%; }
+
+/* ===== Always Closed Sidebar on Tablet ===== */
+
+@media screen and (max-width: 1300px) {
+    header  {
+        margin-top: 0;
+    }
+    .section {
+        margin-top: 0;
+    }
+    .sidebarToggle {
+        visibility: hidden;
+    }
+}
