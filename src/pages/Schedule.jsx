@@ -20,29 +20,49 @@ const Schedule = () => {
   const [dayWidth, setDayWidth] = useState(100);
   const [translateDay, setTranslateDay] = useState('');
 
+  const [currWeek, setCurrWeek] = useState(1);
+  const [weekStep, setWeekStep] = useState(60);
+  const [weekWidth, setWeekWidth] = useState('110px');
+  const [weekTextGap, setWeekTextGap] = useState(19);
+  const [translateWeek, setTranslateWeek] = useState('');
+
   function updateDimensions() {
     if (window.innerWidth < 950) {
         setDayMoveStart(-160);
         setDayMoveStep(63.7);
         setDayWidth(50);
-    } else if (window.innerWidth < 1300) {
+        
+        setWeekStep(45);
+        setWeekWidth('90px');
+        setWeekTextGap('10%');
+      } else if (window.innerWidth < 1300) {
         setDayMoveStart(-227);
         setDayMoveStep(90.5);
         setDayWidth(80);
-    } else {
+
+        setWeekStep(45);
+        setWeekWidth('90px');
+        setWeekTextGap('10%');
+      } else {
         setDayMoveStart(-355);
         setDayMoveStep(142);
         setDayWidth(100);
+
+        setWeekStep(60);
+        setWeekWidth('110px');
+        setWeekTextGap('19%');
     }
   }
 
   useEffect(() => {
     updateDimensions();
     setTranslateDay(`translateX(calc(${dayMoveStart}px + ${dayMoveStep}px * ${currDay}))`);
+    setTranslateWeek(`translateX(${currWeek === 1 ? '-' : ''}${weekStep}px`);
 
     const handleResize = () => {
       updateDimensions();
       setTranslateDay(`translateX(calc(${dayMoveStart}px + ${dayMoveStep}px * ${currDay}))`);
+      setTranslateWeek(`translateX(${currWeek === 1 ? '-' : ''}${weekStep}px`);
     };
 
     window.addEventListener('resize', handleResize);
@@ -50,31 +70,51 @@ const Schedule = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [currDay, dayMoveStart, dayMoveStep]);
+  }, [currDay, dayMoveStart, dayMoveStep, currWeek, weekStep]);
 
   const [focusedSubject, setFocusedSubject] = useLocalStorage('focusedSubject', {});
 
   useEffect(() => {
-    if (subjects.length > 0 && !Object.keys(focusedSubject).length)
-      setFocusedSubject(subjects[0]);
-  }, [subjects]);
+    const days = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+    const firstSubject = subjects.find(subj => 
+      subj.week === currWeek &&
+      subj.day === days[currDay]
+    );
+    
+    if (firstSubject) {
+      setFocusedSubject(firstSubject);
+    }
+  }, [subjects, currDay, currWeek]);
   
-  function showSubject(time, timeIndex, week, dayIndex) {
+  const [subjToShow, setSubjToShow] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSubjToShow(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [subjects, currDay, currWeek]);
+
+
+  function showSubject(time, timeIndex) {
     const days = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
     const subject = subjects.find((subj) => 
-      subj.week === week && 
-      subj.day === days[dayIndex] && 
+      subj.week === currWeek && 
+      subj.day === days[currDay] && 
       subj.time === time);
     
     if (!subject) return '';
   
-    const isFocused = focusedSubject === subject;
-      
     return (
       <div
         key={subject.name}
         data-room={ subject.room === 'Online' ? 'online' : 'classroom' }
-        className={ `${styles.subject} ${isFocused ? styles.subjectFocus : ''}` }
+        className={ 
+          `${styles.subject} 
+           ${subjToShow ? styles.subjectShown : ''} 
+           ${focusedSubject === subject ? styles.subjectFocus : ''}` 
+        }
         style={ time !== '8:20' ? { transform: `translateY(calc(110px * ${timeIndex + 1}))` } : {} }
         onClick={ () => { setFocusedSubject(subject); } }
       >
@@ -84,9 +124,6 @@ const Schedule = () => {
       </div>
     );
   }
-
-  const [currWeek, setCurrWeek] = useState(1);
-  const [tanslateWeek, setTanslateWeek] = useState('translateX(-60px)');
   
   const [isOpen] = useLocalStorage('isSideBarOpen');
 
@@ -119,13 +156,13 @@ const Schedule = () => {
 
           <div className={styles.subjectsList}>
             <p className={styles.firstTime}>8:20</p>
-            {showSubject('8:20', 0, currWeek, currDay)}
+            {showSubject('8:20', 0)}
 
             {['9:50', '11:30', '13:00', '14:40', '16:10', '17:50'].map((time, index) => (
               <>  
                 <div className={styles.line}></div>
                 <p className={styles.time}>{time}</p>
-                {showSubject(time, index, currWeek, currDay)}
+                {showSubject(time, index)}
               </>
             ))}
             
@@ -134,25 +171,25 @@ const Schedule = () => {
         </div>  
 
         <div>
-          <div className={styles.weekToggle}>
+          <div className={styles.weekToggle} style={{gap: weekTextGap}}>
             <p  
               className={currWeek === 1 ? styles.selectedWeek : ''} 
-              onClick={() => {setCurrWeek(1); setTanslateWeek('translateX(-60px)')}}>
+              onClick={() => {setCurrWeek(1); setTranslateWeek(`translateX(-${weekStep}px`)}}>
                 1 Тиждень
             </p>
             <p  
               className={currWeek === 2 ? styles.selectedWeek : ''} 
-              onClick={() => {setCurrWeek(2); setTanslateWeek('translateX(60px)')}}>
+              onClick={() => {setCurrWeek(2); setTranslateWeek(`translateX(${weekStep}px`)}}>
                 2 Тиждень
             </p>
-            <div className={styles.weekTogWrap} style={{transform: tanslateWeek}}></div>
+            <div className={styles.weekTogWrap} style={{transform: translateWeek, width: weekWidth}}></div>
           </div>  
           <div className={styles.subjInfo} >
             <h1>Опис</h1>
-            <p><span>Предмет:</span> <br/> { focusedSubject.name }</p>
-            <p><span>Формат:</span> <br/> { focusedSubject.format }</p>
-            <p><span>Викладач:</span> <br/> { focusedSubject.teacher }</p>
-            <p><span>Аудиторія:</span> <br/> { focusedSubject.room }</p>
+              <p><span>Предмет:</span> <br/> { focusedSubject.name }</p>
+              <p><span>Формат:</span> <br/> { focusedSubject.format }</p>
+              <p><span>Викладач:</span> <br/> { focusedSubject.teacher }</p>
+              <p><span>Аудиторія:</span> <br/> { focusedSubject.room }</p>
           </div>  
         </div>
       </div>

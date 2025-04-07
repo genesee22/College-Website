@@ -203,7 +203,7 @@ label i {
     display: flex;
     justify-content: center;
     cursor: default;
-    transition: all 0.25s ease-in-out;
+    transition: all 0.1s ease-in-out;
 }
 
 .navItem {
@@ -228,7 +228,7 @@ label i {
 
 .navItem p { cursor: pointer; }
 
-.navItem:has(p:hover), .navItem:has(i:hover) { color: var(--navitem-hover); }
+.navItem:has(p:active), .navItem:has(i:active) { color: var(--navitem-hover); }
 
 /* ===== Accaunt Info | Closed SideBar ===== */
 
