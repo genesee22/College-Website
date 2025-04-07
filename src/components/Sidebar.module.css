@@ -117,7 +117,7 @@ header {
     transition: all 0.25s ease-in-out;
 }
 
-.settings:hover { border-radius: 10px; }
+.settings:hover { border-radius: 9px; }
 
 .toggleWrapper {
     display: flex;

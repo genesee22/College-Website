@@ -4,7 +4,7 @@
    flex-direction: column;
    width: 800px;
    height: 850px;
-   margin-top: 40px;
+   margin: 40px 0;
    margin-right: 35px;
    padding-top: 20px;
    transition: all 0.25s ease-in-out;
@@ -13,6 +13,11 @@
 .weekToggle {
    display: flex;
    justify-content: center;
+   align-items: center;
+   font-family: "Montserrat", sans-serif;
+   font-size: 0.8rem;
+   font-weight: 600;
+   gap: 19%;
    background-color: var(--bg-secondary);
    width: 250px;
    height: 50px;
@@ -20,21 +25,61 @@
    margin-top: 50px;
    border-radius: 1rem;
    border: 2px solid var(--gray-3);
+   transition: color 0.25s ease-in-out;
+}
+
+.weekToggle p {
+   z-index: 1;
+   cursor: pointer;
+}
+
+.selectedWeek {
+   color: var(--btn-font-color);
+   cursor: default !important;
+   transition: color 0.25s ease-in-out;
+}
+
+.weekTogWrap {
+   position: absolute;
+   background-color: var(--btn-color);
+   width: 110px;
+   height: 30px;
+   border-radius: 0.6rem;
+   z-index: 0;
    transition: all 0.25s ease-in-out;
 }
 
 .subjInfo {
+   font-family: "Montserrat", sans-serif;
    display: flex;
-   justify-content: center;
+   flex-direction: column;
+   align-items: center;
    background-color: var(--bg-secondary);
    width: 250px;
-   height: 420px;
+   height: 350px;
    margin-left: 35px;
    margin-top: 30px;
    border-radius: 1rem;
    border: 2px solid var(--gray-3);
    transition: all 0.25s ease-in-out;
-} 
+}
+
+.subjInfo h1 {
+   font-weight: 600;
+   text-align: center;
+   margin-top: 10%;
+   margin-bottom: 5%;
+}
+
+.subjInfo span {
+   font-weight: 600;
+}
+
+.subjInfo p {
+   width: 80%;
+   font-size: 0.8rem;
+   margin-bottom: 10%;
+}
 
 .navigation {
    display: flex;
@@ -54,7 +99,7 @@
    width: 70px;
    height: 25px;
    cursor: pointer;
-   transition: all 0.3s ease-in-out;
+   transition: all 0.25s ease-in-out;
 }
 
 .selectedDay {
@@ -86,15 +131,59 @@
    margin-top: -20px;
 }
 
+[data-room="online"] {
+   --subj-primary: var(--blue-primary);
+   --subj-secondary: var(--blue-secondary);
+}
+
+[data-room="classroom"] {
+   --subj-primary: var(--green-primary);
+   --subj-secondary: var(--green-secondary);
+}
+
 .subject {
    position: absolute;
+   display: flex;
+   align-items: center;
    width: 90%;
    height: 80px;
-   background-color: var(--blue-secondary);
+   background-color: var(--subj-secondary);
    border-radius: 0.5rem;
    right: 0;
    margin-right: 1.5%;
    margin-top: 5px;
+   cursor: pointer;
+}
+
+.subjectFocus {
+   cursor: default;
+   border: 1.5px solid var(--subj-primary);
+}
+
+.verticalLine {
+   width: 3px;
+   height: 50%;
+   background-color: var(--subj-primary);
+   border-radius: 1rem;
+   margin-left: 0.9rem;
+}
+
+.subjName {
+   font-size: 1rem;
+   font-weight: 700;
+   margin-top: -0.1rem;
+   margin-left: 1rem;
+   color: var(--subj-primary);
+}
+
+.subjRoom {
+   font-family: "Montserrat", sans-serif;
+   font-size: 0.7rem;
+   color: var(--subj-primary);
+   margin-top: 0.6rem;
+   margin-bottom: auto;
+   margin-right: 1rem;
+   margin-left: auto;
 }
 
 .time, .firstTime {

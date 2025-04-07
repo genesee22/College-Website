@@ -13,37 +13,36 @@ const Schedule = () => {
   }, []);
 
   const weekDay = new Date().getDay();
-  const [currDay, setCurrDay] = useState(weekDay === 7 ? 0 : weekDay - 1);
+  const [currDay, setCurrDay] = useState(weekDay === 7 ? 0 : weekDay);
 
-  const [wrapStart, setWrapStart] = useState(-355);
-  const [wrapStep, setWrapStep] = useState(142);
-  const [wrapWidth, setWrapWidth] = useState(100);
-  const [translateX, setTranslateX] = useState('');
+  const [dayMoveStart, setDayMoveStart] = useState(-355);
+  const [dayMoveStep, setDayMoveStep] = useState(142);
+  const [dayWidth, setDayWidth] = useState(100);
+  const [translateDay, setTranslateDay] = useState('');
 
   function updateDimensions() {
     if (window.innerWidth < 950) {
-        setWrapStart(-160);
-        setWrapStep(63.7);
-        setWrapWidth(50);
+        setDayMoveStart(-160);
+        setDayMoveStep(63.7);
+        setDayWidth(50);
     } else if (window.innerWidth < 1300) {
-        setWrapStart(-227);
-        setWrapStep(90.5);
-        setWrapWidth(80);
+        setDayMoveStart(-227);
+        setDayMoveStep(90.5);
+        setDayWidth(80);
     } else {
-        setWrapStart(-355);
-        setWrapStep(142);
-        setWrapWidth(100);
+        setDayMoveStart(-355);
+        setDayMoveStep(142);
+        setDayWidth(100);
     }
   }
 
   useEffect(() => {
     updateDimensions();
-
-    setTranslateX(`translateX(calc(${wrapStart}px + ${wrapStep}px * ${currDay}))`);
+    setTranslateDay(`translateX(calc(${dayMoveStart}px + ${dayMoveStep}px * ${currDay}))`);
 
     const handleResize = () => {
       updateDimensions();
-      setTranslateX(`translateX(calc(${wrapStart}px + ${wrapStep}px * ${currDay}))`);
+      setTranslateDay(`translateX(calc(${dayMoveStart}px + ${dayMoveStep}px * ${currDay}))`);
     };
 
     window.addEventListener('resize', handleResize);
@@ -51,9 +50,46 @@ const Schedule = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [currDay, wrapStart, wrapStep]);
+  }, [currDay, dayMoveStart, dayMoveStep]);
 
+  const [focusedSubject, setFocusedSubject] = useLocalStorage('focusedSubject', {});
+
+  useEffect(() => {
+    if (subjects.length > 0 && !Object.keys(focusedSubject).length)
+      setFocusedSubject(subjects[0]);
+  }, [subjects]);
+  
+  function showSubject(time, timeIndex, week, dayIndex) {
+    const days = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+    const subject = subjects.find((subj) => 
+      subj.week === week && 
+      subj.day === days[dayIndex] && 
+      subj.time === time);
+    
+    if (!subject) return '';
+  
+    const isFocused = focusedSubject === subject;
+      
+    return (
+      <div
+        key={subject.name}
+        data-room={ subject.room === 'Online' ? 'online' : 'classroom' }
+        className={ `${styles.subject} ${isFocused ? styles.subjectFocus : ''}` }
+        style={ time !== '8:20' ? { transform: `translateY(calc(110px * ${timeIndex + 1}))` } : {} }
+        onClick={ () => { setFocusedSubject(subject); } }
+      >
+        <div className={ styles.verticalLine }></div>
+        <p className={ styles.subjName }>{ subject.name }</p>
+        <p className={ styles.subjRoom }>{ subject.room }</p>
+      </div>
+    );
+  }
+
+  const [currWeek, setCurrWeek] = useState(1);
+  const [tanslateWeek, setTanslateWeek] = useState('translateX(-60px)');
+  
   const [isOpen] = useLocalStorage('isSideBarOpen');
+
   return (
     <>
       <div className='header-img'>
@@ -70,43 +106,54 @@ const Schedule = () => {
                 className={`${styles.days} ${currDay === index ? styles.selectedDay : ''}`}
                 onClick={() => {
                   setCurrDay(index);
-                  setTranslateX(`translateX(calc(${wrapStart}px + ${wrapStep}px * ${index}))`);
+                  setTranslateDay(`translateX(calc(${dayMoveStart}px + ${dayMoveStep}px * ${index}))`);
                 }}
               >
                 {day}
               </p>
             ))}
-            <div className={styles.selectedWrapper} style={{ transform: translateX, width: `${wrapWidth}px` }}></div>
+            <div className={styles.selectedWrapper} style={{ transform: translateDay, width: `${dayWidth}px` }}></div>
           </div>
 
           <div className={styles.navUnderLine}></div>
 
           <div className={styles.subjectsList}>
             <p className={styles.firstTime}>8:20</p>
-            {subjects.find((subj) => subj.time === '8:20') === undefined ? null :
-              <div className={styles.subject}></div>
-            }
+            {showSubject('8:20', 0, currWeek, currDay)}
+
             {['9:50', '11:30', '13:00', '14:40', '16:10', '17:50'].map((time, index) => (
               <>  
                 <div className={styles.line}></div>
                 <p className={styles.time}>{time}</p>
-                {subjects.find((subj) => subj.time === time) === undefined ? null :
-                  <div 
-                    className={styles.subject}
-                    style={{transform: `translateY(calc(110px * ${index + 1}))`}}
-                  >
-
-                  </div>
-                }
+                {showSubject(time, index, currWeek, currDay)}
               </>
             ))}
+            
             <div className={styles.line}></div>
           </div>
         </div>  
 
         <div>
-          <div className={styles.weekToggle}></div>  
-          <div className={styles.subjInfo}></div>  
+          <div className={styles.weekToggle}>
+            <p  
+              className={currWeek === 1 ? styles.selectedWeek : ''} 
+              onClick={() => {setCurrWeek(1); setTanslateWeek('translateX(-60px)')}}>
+                1 Тиждень
+            </p>
+            <p  
+              className={currWeek === 2 ? styles.selectedWeek : ''} 
+              onClick={() => {setCurrWeek(2); setTanslateWeek('translateX(60px)')}}>
+                2 Тиждень
+            </p>
+            <div className={styles.weekTogWrap} style={{transform: tanslateWeek}}></div>
+          </div>  
+          <div className={styles.subjInfo} >
+            <h1>Опис</h1>
+            <p><span>Предмет:</span> <br/> { focusedSubject.name }</p>
+            <p><span>Формат:</span> <br/> { focusedSubject.format }</p>
+            <p><span>Викладач:</span> <br/> { focusedSubject.teacher }</p>
+            <p><span>Аудиторія:</span> <br/> { focusedSubject.room }</p>
+          </div>  
         </div>
       </div>
     </> 
