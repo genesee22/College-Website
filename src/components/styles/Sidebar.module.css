@@ -39,7 +39,7 @@
 
 /* ===== Accaunt Info ===== */
 
-header {
+.header {
     align-items: center;
     width: 80%;
     margin-top: 10px;
@@ -232,7 +232,7 @@ label i {
 
 /* ===== Accaunt Info | Closed SideBar ===== */
 
-.sidebar.close header {
+.sidebar.close .header {
     margin-top: 20px;
     transition: all 0.25s ease-in-out;
 }
@@ -343,7 +343,7 @@ label i {
 /* ===== Always Closed Sidebar on Tablet ===== */
 
 @media screen and (max-width: 1300px) {
-    header  {
+    .header  {
         margin-top: 0;
     }
     .section {

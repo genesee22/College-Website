@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
 }
 
 :root {
@@ -105,7 +106,7 @@
   margin-left: 70px;
 }
 
-.content {
+main {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -116,11 +117,11 @@
   transition: all 0.25s ease-in-out;
 }
 
-.content.wider {
+main.wider {
   width: calc(100% - 70px);
 }
 
-.header-img {
+header {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -128,15 +129,28 @@
   transition: all 0.25s ease-in-out;
 }
 
-.header-img img:nth-child(1) {
+header img:nth-child(1) {
   width: 100%;
   height: 100%;
 }
 
-.header-img img:nth-child(2) {
+header img:nth-child(2) {
   position: absolute;
   width: 13%;
   margin-top: 1.6%;
 }
+
+@media screen and (max-width: 1300px) {
+  header {
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  header {
+    height: 130px;
+  }
+}
+
 
 
